@@ -9,7 +9,6 @@ do
 		docker push -q zardus/ubuntu-unminimized:$TAG
 	); then
 		echo "SUCCESS: $TAG"
-		[ "$TAG" == "22.04" ] && exit 1
 	else
 		echo "FAILURE: $TAG"
 
