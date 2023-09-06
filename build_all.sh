@@ -17,3 +17,5 @@ do
 		[ "$TAG" == "22.04" ] && exit 1
 	fi
 done
+
+echo "Done!"
