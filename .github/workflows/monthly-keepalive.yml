@@ -20,7 +20,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: main
           fetch-depth: 0
 
       - name: Update README last-touched marker
@@ -51,4 +50,3 @@ jobs:
           git add README.md
           git commit -m "chore: monthly keepalive"
           git push origin HEAD:main
-
