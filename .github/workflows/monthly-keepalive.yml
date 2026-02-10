@@ -1,0 +1,54 @@
+name: Monthly Keepalive
+
+on:
+  schedule:
+    # Monthly on the 1st at 03:17 UTC
+    - cron: "17 3 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: monthly-keepalive
+  cancel-in-progress: false
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Update README last-touched marker
+        shell: bash
+        run: |
+          set -euo pipefail
+          ts="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+
+          if ! grep -qE '^<!-- last-touched: ' README.md; then
+            printf '\n<!-- last-touched: %s -->\n' "$ts" >> README.md
+          else
+            # Replace the entire marker line (keep it single-line, at most one occurrence).
+            sed -i -E "s|^<!-- last-touched: .* -->$|<!-- last-touched: ${ts} -->|" README.md
+          fi
+
+      - name: Commit and push (main)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "chore: monthly keepalive"
+          git push origin HEAD:main
+
