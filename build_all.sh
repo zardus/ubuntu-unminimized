@@ -14,6 +14,7 @@ do
 
 		# some sanity checks
 		[ "$TAG" == "latest" ] && exit 1
+		[ "$TAG" == "24.04" ] && exit 1
 		[ "$TAG" == "22.04" ] && exit 1
 	fi
 done

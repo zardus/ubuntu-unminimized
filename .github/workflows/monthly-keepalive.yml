@@ -49,4 +49,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
           git commit -m "chore: monthly keepalive"
-          git push origin HEAD:main
+          git push origin HEAD:master
