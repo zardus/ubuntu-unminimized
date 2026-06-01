@@ -16,4 +16,4 @@ docker run -it zardus/ubuntu-unminimized:20.04
 docker run -it zardus/ubuntu-unminimized:jammy
 ```
 
-<!-- last-touched: 2026-05-01T04:37:17Z -->
+<!-- last-touched: 2026-06-01T04:54:23Z -->
